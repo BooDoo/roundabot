@@ -8,7 +8,7 @@
  */
 
 /* TODO WEIRDNESS:
- *   - Getting "N/A" for invideo.duration (see: logh02.mkv)
+ *   - Getting "N/A" for invideo.duration (see: logh02.mkv, luluco1.flv)
  */
 
 var _ = require('lodash');
@@ -30,7 +30,7 @@ var TEST_INPUT = {
 var OUTPUT_PATH = './test-out.mp4'
 
 var out_w = 1280, out_h = 720;
-var out_dur = 7.5;
+var out_dur = 8.5;
 
 var seekCommand, seekAmount = 0;
 var in_level = 1.0; // audio level from input
@@ -60,7 +60,16 @@ function storeMetadata(source) {
     }
   );
 }
-storeMetadata(TEST_INPUT).tap(console.log).then(setFreezes).then(renameStreams).then(staticFilters).then(dynamicFilters).then(composeCommand).then(executeCommand).catch(console.error);
+
+storeMetadata(TEST_INPUT).
+  tap(console.log).
+  then(setFreezes).
+  then(renameStreams).
+  then(staticFilters).
+  then(dynamicFilters).
+  then(composeCommand).
+  then(executeCommand).
+  catch(console.error);
 
 /* IN CHAIN:
  * 0:v is input video (=> [video_in])
